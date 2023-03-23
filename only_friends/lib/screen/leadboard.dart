@@ -7,60 +7,39 @@ class LeadBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        // elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-            "OnlyFriends",
-            style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+    return ListView(children: [
+      Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
+            child: Text("Classifica Generale Lead",
+                style: GoogleFonts.pacifico(fontSize: 26, color: Colors.black)),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25.0),
+            child: Container(
+                width: 320,
+                height: 250,
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.amber)),
+                child: Column()),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
+            child: Text("Classifica Mongolino D'Oro",
+                style: GoogleFonts.pacifico(fontSize: 26, color: Colors.black)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25.0),
+            child: Container(
+                width: 320,
+                height: 250,
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.amber)),
+                child: Column()),
+          ),
+        ],
       ),
-      body: ListView(
-        children: [Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25.0),
-                  child: Text("Classifica Generale Lead", style: GoogleFonts.pacifico(fontSize: 26, color: Colors.black)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 25.0),
-                  child: Container(
-                    width: 320,
-                    height: 250,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.amber)
-                    ),
-                    child: Column(
-                
-                    )
-                    
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25.0),
-                  child: Text("Classifica Mongolino D'Oro", style: GoogleFonts.pacifico(fontSize: 26, color: Colors.black)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 25.0),
-                  child: Container(
-                    width: 320,
-                    height: 250,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.amber)
-                    ),
-                    child: Column(
-                    )
-                  ),
-                ),
-              ],
-        ),            
-
-        ]
-      )
-    );
+    ]);
   }
 }
