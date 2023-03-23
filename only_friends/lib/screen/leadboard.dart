@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 
 class LeadBoard extends StatelessWidget {
   const LeadBoard({super.key});
@@ -7,6 +8,7 @@ class LeadBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomBar(),
       appBar: AppBar(
         centerTitle: true,
         // elevation: 0,
@@ -52,12 +54,13 @@ class LeadBoard extends StatelessWidget {
                       border: Border.all(color: Colors.amber)
                     ),
                     child: Column(
-                
                     )
                   ),
                 ),
               ],
-        ),]
+        ),            
+
+        ]
       )
     );
   }
