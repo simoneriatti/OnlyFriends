@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:only_friends/screen/authpages/auth_page.dart';
 import 'package:only_friends/screen/main_page.dart';
-import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
 }
 
@@ -15,8 +18,33 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  bool showLoginPage = true;
+
+  void toggleAuthPage() {
+    setState(() {
+      showLoginPage = !showLoginPage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MainPage();
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: MaterialApp(
+        title: "OnlyFriends",
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.system,
+        theme: ThemeData(
+            primarySwatch: Colors.orange,
+            scaffoldBackgroundColor: Colors.white),
+        home: const AuthPage(),
+        routes: <String, WidgetBuilder>{
+          "auth": (BuildContext context) => const AuthPage(),
+          "main": (BuildContext context) => const MainPage(),
+        },
+      ),
+    );
   }
 }
