@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 
-class LeadBoard extends StatelessWidget {
-  const LeadBoard({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class LeadBoard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25.0),
-            child: Text("Classifica Generale Lead",
+            child: Text("Classifica Generale Home",
                 style: GoogleFonts.pacifico(fontSize: 26, color: Colors.black)),
           ),
           Padding(
