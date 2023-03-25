@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,9 @@ class HomePage extends StatelessWidget {
                 height: 250,
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.amber)),
-                child: Column()),
+                child: Column(
+                  children: [Text(user.email!)],
+                )),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25.0),
