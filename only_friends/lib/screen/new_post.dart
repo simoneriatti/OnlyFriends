@@ -19,7 +19,7 @@ class _NewPostState extends State<NewPost> {
   String _photoUrl = "";
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
+  // widget per sostituire i due TextFormField uguali che creerò più avanti. Per un codice più pulito.
   Widget _buildTextField(String hintText, Function(String) onChanged) {
     return TextFormField(
       maxLines: hintText == 'Enter description' ? 4 : 1,
@@ -86,7 +86,7 @@ class _NewPostState extends State<NewPost> {
                 child: IconButton(
                   icon: Icon(Icons.add, color: Colors.white),
                   onPressed: () {
-                    // Add image functionality
+                    // Qua è da aggiungere il codice per poter far inserire l'immagine all'utente
                   },
                 ),
               ),
@@ -115,7 +115,7 @@ class _NewPostState extends State<NewPost> {
                   // Piccolo messaggio su console per far vedere che il post è stato inserito correttamente
                   print('Post added successfully');
 
-                  // Navigate to the home screen
+                  // Ritorno alla pagina principale
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MainPage()),
