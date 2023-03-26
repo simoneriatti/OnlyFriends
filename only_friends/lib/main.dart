@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:only_friends/screen/start_page.dart';
 import 'firebase_options.dart';
 import 'package:only_friends/screen/authpages/auth_page.dart';
 import 'package:only_friends/screen/main_page.dart';
@@ -31,7 +32,7 @@ class _MainAppState extends State<MainApp> {
         theme: ThemeData(
             primarySwatch: Colors.orange,
             scaffoldBackgroundColor: Colors.white),
-        home: const AuthPage(),
+        home: const StartPage(),
         routes: <String, WidgetBuilder>{
           "auth": (BuildContext context) => const AuthPage(),
           "main": (BuildContext context) => const MainPage(),

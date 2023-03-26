@@ -23,7 +23,6 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void redirectToLogin() {
-    print(showLoginPage);
     if (widget.showLoginPage != null) {
       setState(() {
         showLoginPage = true;

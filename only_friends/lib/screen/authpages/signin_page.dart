@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,7 +33,7 @@ class _SigninPageState extends State<SigninPage> {
     super.dispose();
   }
 
-  void signUserIn() async {
+  Future signUserIn() async {
     if (passController.text.trim() == passConfirmController.text.trim()) {
       showDialog(
           context: context,
@@ -43,8 +44,9 @@ class _SigninPageState extends State<SigninPage> {
           });
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: emailController.text, password: passController.text);
-        widget.showLoginPage;
+            email: emailController.text.trim(),
+            password: passController.text.trim());
+        addUserDetails(fNameController.text.trim());
         Navigator.pop(context);
       } on FirebaseException catch (e) {
         Navigator.pop(context);
@@ -63,8 +65,16 @@ class _SigninPageState extends State<SigninPage> {
         // }
       }
     } else {
+      passController.clear();
+      passConfirmController.clear();
       wrongPasswordMessage();
     }
+  }
+
+  Future addUserDetails(String firstName) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .add({'name': firstName});
   }
 
   void wrongPasswordMessage() {
@@ -246,12 +256,6 @@ class _SigninPageState extends State<SigninPage> {
                         onPressed: () {
                           if (_formfield.currentState!.validate()) {
                             signUserIn();
-                            fNameController.clear();
-                            lNameController.clear();
-                            emailController.clear();
-                            userController.clear();
-                            passController.clear();
-                            passConfirmController.clear();
                           }
                         },
                       )),
