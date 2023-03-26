@@ -20,6 +20,23 @@ class _NewPostState extends State<NewPost> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 
+  Widget _buildTextField(String hintText, Function(String) onChanged) {
+    return TextFormField(
+      maxLines: hintText == 'Enter description' ? 4 : 1,
+      decoration: InputDecoration(
+        hintText: hintText,
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide.none,
+        ),
+      ),
+      onChanged: onChanged,
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,22 +55,11 @@ class _NewPostState extends State<NewPost> {
                 ),
               ),
               SizedBox(height: 10),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Enter title',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _postTitle = value;
-                  });
-                },
-              ),
+              _buildTextField("Enter title", (value) {
+                setState(() {
+                  _postTitle = value;
+                });
+              }),
               SizedBox(height: 20),
               Text(
                 'Description',
@@ -64,23 +70,11 @@ class _NewPostState extends State<NewPost> {
                 ),
               ),
               SizedBox(height: 10),
-              TextFormField(
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: 'Enter description',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    _postDescription = value;
-                  });
-                },
-              ),
+              _buildTextField("Enter description", (value) {
+                setState(() {
+                  _postDescription = value;
+                });
+              }),
               SizedBox(height: 20),
               Container(
                 width: 100,
