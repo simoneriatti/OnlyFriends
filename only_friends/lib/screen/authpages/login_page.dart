@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:only_friends/widget/dialog_create_group.dart';
+
 class LoginPage extends StatefulWidget {
   final VoidCallback showSignInPage;
   const LoginPage({Key? key, required this.showSignInPage}) : super(key: key);
@@ -163,7 +165,15 @@ class _LoginPageState extends State<LoginPage> {
                       Text("Vuoi creare un nuovo Gruppo?",
                           style: GoogleFonts.poppins(fontSize: 12)),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => StatefulBuilder(
+                              builder: (BuildContext dialogcontext, setState) =>
+                                  DialogCreateGroup(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Crea Gruppo",
                           style: GoogleFonts.poppins(fontSize: 18),
