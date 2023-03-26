@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/leadboard.dart';
 import 'package:only_friends/screen/user_profile.dart';
+import 'package:only_friends/widget/header_drawer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -53,6 +54,8 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
+            drawer: HeaderDrawer(),
             body: _pages[_selectedIndex]));
+            
   }
 }
