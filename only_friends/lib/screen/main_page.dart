@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:only_friends/screen/authpages/auth_page.dart';
 import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/leadboard.dart';
+import 'package:only_friends/screen/new_post.dart';
 import 'package:only_friends/screen/user_profile.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final _pages = [HomePage(), const LeadBoard(), const UserProfile()];
+  final _pages = [HomePage(), const LeadBoard(), NewPost(), const UserProfile()];
 
   checkUserSignInNow() async {
     FirebaseAuth.instance.authStateChanges().listen((user) async {
@@ -84,8 +85,12 @@ class _MainPageState extends State<MainPage> {
                   ),
                   NavigationDestination(
                     icon: Icon(Icons.abc),
+                    label: "+",
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.abc),
                     label: "Profilo",
-                  )
+                  ),
                 ],
                 selectedIndex: _selectedIndex,
                 onDestinationSelected: (value) {
