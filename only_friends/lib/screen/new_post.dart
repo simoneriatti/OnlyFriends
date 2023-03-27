@@ -40,6 +40,17 @@ class _NewPostState extends State<NewPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  "OnlyFriends",
+                  style:
+                      GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+                ),
+              ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

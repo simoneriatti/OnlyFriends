@@ -6,6 +6,7 @@ import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/leadboard.dart';
 import 'package:only_friends/screen/new_post.dart';
 import 'package:only_friends/screen/user_profile.dart';
+import 'package:only_friends/widget/dialog_popup_create.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -16,7 +17,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final _pages = [HomePage(), const LeadBoard(), NewPost(), const UserProfile()];
+  final _pages = [HomePage(), const LeadBoard(), PopupExample(), const UserProfile()];
 
   checkUserSignInNow() async {
     FirebaseAuth.instance.authStateChanges().listen((user) async {
