@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:only_friends/screen/new_challenge.dart';
 import 'package:only_friends/screen/new_post.dart';
 
 class PopupExample extends StatelessWidget {
@@ -20,7 +21,10 @@ class PopupExample extends StatelessWidget {
                 // The first button with a duel icon
                 GestureDetector(
                   onTap: () {
-                    // Handle button press
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewChallenge())
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(
