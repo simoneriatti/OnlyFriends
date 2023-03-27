@@ -74,6 +74,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
+            drawer: HeaderDrawer(),
             body: _pages[_selectedIndex],
             bottomNavigationBar: NavigationBar(
                 destinations: const [
