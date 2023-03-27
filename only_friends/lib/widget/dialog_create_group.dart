@@ -13,6 +13,7 @@ class DialogCreateGroup extends StatefulWidget {
 
 class _DialogCreateGroupState extends State<DialogCreateGroup> {
   final groupController = TextEditingController();
+  final passController = TextEditingController();
   String groupName = "";
   String groupNameHash = "";
   bool isCreated = false;
@@ -24,9 +25,10 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
   void createGroup() {
     // ignore: todo
     // TODO salvare du db firebase il nome e l hash del gruppo
-    var bytes = utf8.encode(groupName);
+    // var bytes = utf8.encode(groupName);
     setState(() {
-      groupNameHash = sha1.convert(bytes).toString().substring(0, 14);
+      // groupNameHash = sha1.convert(bytes).toString().substring(0, 14);
+      groupNameHash = passController.text;
       isCreated = !isCreated;
     });
   }
@@ -45,17 +47,11 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 15.0),
-              child: ListTile(
-                title: Text("Create Group",
-                    style: GoogleFonts.poppins(fontSize: 20)),
-                trailing: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                ),
-                onTap: () {
-                  Navigator.pop(dialogcontext);
-                },
-              ),
+              child: Text("Create Group",
+                  style: GoogleFonts.poppins(
+                      fontSize: 30,
+                      color: Colors.orange,
+                      fontWeight: FontWeight.w700)),
             ),
             !isCreated
                 ? Padding(
@@ -69,6 +65,21 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
                       ),
                       style: GoogleFonts.poppins(fontSize: 18),
                       controller: groupController,
+                    ),
+                  )
+                : const Padding(padding: EdgeInsets.all(0)),
+            !isCreated
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30.0, horizontal: 30.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                        prefixIcon: Icon(Icons.lock_outline),
+                      ),
+                      style: GoogleFonts.poppins(fontSize: 18),
+                      controller: passController,
                     ),
                   )
                 : const Padding(padding: EdgeInsets.all(0)),
@@ -140,13 +151,17 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
                       borderRadius: BorderRadius.circular(15.0)),
                   onPressed: () {
                     if (groupController.text != "") {
-                      setState(() {
-                        groupName = groupController.text;
-                      });
-                      createGroup();
+                      if (!isCreated) {
+                        setState(() {
+                          groupName = groupController.text;
+                        });
+                        createGroup();
+                      } else {
+                        Navigator.pop(dialogcontext);
+                      }
                     }
                   },
-                  child: Text("Create Group",
+                  child: Text(!isCreated ? "Create Group" : "Done",
                       style: GoogleFonts.poppins(fontSize: 20))),
             ),
           ],
