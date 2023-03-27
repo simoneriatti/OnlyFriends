@@ -46,7 +46,13 @@ class _SigninPageState extends State<SigninPage> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passController.text.trim());
-        addUserDetails(fNameController.text.trim());
+        addUserDetails(
+          fNameController.text.trim(),
+          lNameController.text.trim(),
+          userController.text.trim(),
+          emailController.text.trim(),
+          passController.text.trim(),
+        );
         Navigator.pop(context);
       } on FirebaseException catch (e) {
         Navigator.pop(context);
@@ -71,10 +77,15 @@ class _SigninPageState extends State<SigninPage> {
     }
   }
 
-  Future addUserDetails(String firstName) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .add({'name': firstName});
+  Future addUserDetails(String firstName, String lastname, String username,
+      String email, String password) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'firstname': firstName,
+      'lastname': lastname,
+      'username': username,
+      'email': email,
+      'password': password,
+    });
   }
 
   void wrongPasswordMessage() {
