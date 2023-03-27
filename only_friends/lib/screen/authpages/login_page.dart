@@ -90,8 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Username',
-                        prefixIcon: Icon(Icons.person),
+                        labelText: 'Email',
+                        prefixIcon: Icon(Icons.mail),
                       ),
                       style: GoogleFonts.poppins(fontSize: 20),
                       controller: emailController,
@@ -161,23 +161,30 @@ class _LoginPageState extends State<LoginPage> {
                         }),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Vuoi creare un nuovo Gruppo?",
-                          style: GoogleFonts.poppins(fontSize: 12)),
-                      TextButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => StatefulBuilder(
-                              builder: (BuildContext dialogcontext, setState) =>
-                                  DialogCreateGroup(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text("Vuoi creare un nuovo Gruppo?",
+                              style: GoogleFonts.poppins(fontSize: 16)),
+                          TextButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => StatefulBuilder(
+                                  builder:
+                                      (BuildContext dialogcontext, setState) =>
+                                          const DialogCreateGroup(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Crea Gruppo",
+                              style: GoogleFonts.poppins(fontSize: 20),
                             ),
-                          );
-                        },
-                        child: Text(
-                          "Crea Gruppo",
-                          style: GoogleFonts.poppins(fontSize: 18),
-                        ),
+                          )
+                        ],
                       )
                     ],
                   ),
