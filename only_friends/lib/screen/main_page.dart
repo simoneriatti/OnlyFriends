@@ -7,6 +7,7 @@ import 'package:only_friends/screen/leadboard.dart';
 import 'package:only_friends/screen/new_post.dart';
 import 'package:only_friends/screen/user_profile.dart';
 import 'package:only_friends/widget/dialog_popup_create.dart';
+import 'package:only_friends/widget/header_drawer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
