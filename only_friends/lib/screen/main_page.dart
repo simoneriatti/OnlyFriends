@@ -6,6 +6,7 @@ import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/leadboard.dart';
 import 'package:only_friends/screen/new_post.dart';
 import 'package:only_friends/screen/user_profile.dart';
+import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 import 'package:only_friends/widget/dialog_popup_create.dart';
 import 'package:only_friends/widget/header_drawer.dart';
 
@@ -55,51 +56,29 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(primarySwatch: Colors.orange),
-        home: Scaffold(
-            appBar: AppBar(
-              actions: [
-                IconButton(
-                    onPressed: signUserOut, icon: const Icon(Icons.exit_to_app))
-              ],
-              centerTitle: true,
-              // elevation: 0,
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  "OnlyFriends",
-                  style:
-                      GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
-                ),
-              ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.orange),
+      home: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: signUserOut,
+              icon: const Icon(Icons.exit_to_app),
             ),
-            drawer: HeaderDrawer(),
-            body: _pages[_selectedIndex],
-            bottomNavigationBar: NavigationBar(
-                destinations: const [
-                  NavigationDestination(
-                    icon: Icon(Icons.abc),
-                    label: "Home",
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.abc),
-                    label: "Classifica",
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.abc),
-                    label: "+",
-                  ),
-                  NavigationDestination(
-                    icon: Icon(Icons.abc),
-                    label: "Profilo",
-                  ),
-                ],
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    _selectedIndex = value;
-                  });
-                })));
+          ],
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              "OnlyFriends",
+              style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+            ),
+          ),
+        ),
+        drawer: HeaderDrawer(),
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: const BottomBar(),
+      ),
+    );
   }
 }
