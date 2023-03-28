@@ -15,7 +15,7 @@ class _BottomBarState extends State<BottomBar> {
     int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    List<Widget> pages = [HomePage(),LeadBoard(),UserProfile()];
+    List<Widget> pages = [HomePage(),LeadBoard(), UserProfile()];
     return Scaffold(
         bottomNavigationBar: NavigationBar(
         destinations: [NavigationDestination(icon: Icon(Icons.abc),label: "Home",),

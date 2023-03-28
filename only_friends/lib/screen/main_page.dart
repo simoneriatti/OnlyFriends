@@ -15,7 +15,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    var _pages = [const HomePage(), const LeadBoard(), const UserProfile()];
+    var _pages = [const HomePage(), const LeadBoard(), UserProfile()];
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.orange),
