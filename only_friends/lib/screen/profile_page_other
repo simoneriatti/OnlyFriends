@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:social_app_ui/util/data.dart';
 
-class UserProfile extends StatefulWidget {
+class Profile_other extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _ProfileStateOther createState() => _ProfileStateOther();
 }
 
-class _ProfileState extends State<UserProfile> {
+class _ProfileStateOther extends State<Profile_other> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Container(
-          margin: const EdgeInsets.all(0.5),
+          margin: EdgeInsets.all(0.5),
           width: MediaQuery.of(context).size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +66,7 @@ class _ProfileState extends State<UserProfile> {
               _PostContainer("PostContainer"),
               _PostContainer("PostContainer"),
               _PostContainer("PostContainer"),
+              
             ],
           ),
         ),
@@ -120,7 +121,7 @@ class _ProfileState extends State<UserProfile> {
         ));
   }
 
-  Widget _postTitle(String title) {
+Widget _postTitle(String title) {
     return const Padding(
         padding: const EdgeInsets.fromLTRB(40, 40, 0, 0),
         child: Text(
@@ -128,10 +129,9 @@ class _ProfileState extends State<UserProfile> {
           style: TextStyle(fontStyle: FontStyle.italic),
         ));
   }
-
   Widget _descriptionContainer(String payloadDescription) {
     const text = Text("Lorem ipsum");
-    TextAlign.center;
+         TextAlign.center;
     return Container(
       margin: const EdgeInsets.all(15),
       width: double.infinity,
@@ -143,15 +143,14 @@ class _ProfileState extends State<UserProfile> {
   }
 
   Widget _PostContainer(String postcontainer) {
-    double currentSliderValue = 0;
+    double _currentSliderValue = 0;
     double likeNumber = 0;
-    String points ="12";
+    String points= "12";
     const data = 'Lorem ipsum ';
-    const tag = 'tag';
-    return Container(
-      padding: const EdgeInsetsDirectional.fromSTEB(10, 5, 0, 0),
+        return Container(
+      padding: const EdgeInsetsDirectional.fromSTEB(10,5,0,0),
       child: Column(
-        children: [
+        children: [ 
           Row(
             children: <Widget>[
               Expanded(
@@ -171,7 +170,7 @@ class _ProfileState extends State<UserProfile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const <Widget>[
                     Text(
-                      tag, //ATTENZIONE !! SE NO METTERE TUTTO CON UN IMMAGINO DI SFONDO SE C'è L'IMMAGINE ALTRIMENTI SOLO LA SCRITTA
+                      'tag', //ATTENZIONE !! SE NO METTERE TUTTO CON UN IMMAGINO DI SFONDO SE C'è L'IMMAGINE ALTRIMENTI SOLO LA SCRITTA
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -233,14 +232,14 @@ class _ProfileState extends State<UserProfile> {
                             child: SizedBox(
                               height: 50,
                               child: Slider(
-                                  value: currentSliderValue,
+                                  value: _currentSliderValue,
                                   min: -10,
                                   max: 10,
                                   divisions: 20,
-                                  label: currentSliderValue.round().toString(),
+                                  label: _currentSliderValue.round().toString(),
                                   onChanged: (double value) {
                                     setState(() {
-                                      currentSliderValue = value;
+                                      _currentSliderValue = value;
                                     });
                                   },
                                   onChangeEnd: (double value) {
@@ -275,83 +274,6 @@ class _ProfileState extends State<UserProfile> {
       ),
     );
   }
-
-  // Widget _slider(String slidersss) {
-  //   double _currentSliderValue = 0;
-  //   double likeNumber = 0;
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     children: [
-  //       // Slider(
-  //       //   value: _currentSliderValue,
-  //       //   thumbColor: Colors.amber,
-  //       //   activeColor: Colors.grey,
-  //       //   inactiveColor: Colors.white,
-  //       //   min: -10,
-  //       //   max: 10,
-  //       //   divisions: 20,
-  //       //   label: _currentSliderValue.round().toString(),
-  //       //   onChanged: (double value) {
-  //       //     setState(() {
-  //       //       _currentSliderValue = value;
-  //       //     });
-  //       //   },
-  //       // ),
-  //       Padding(
-  //         padding: const EdgeInsets.only(top: 8.0, right: 5.0),
-  //         child: LikeButton(size: 40, likeCount: likeNumber),
-  //       ),
-  //       Padding(
-  //         padding: const EdgeInsets.only(top: 8.0, right: 10.0),
-  //         child: IconButton(
-  //           onPressed: () {
-  //             showDialog(
-  //               context: context,
-  //               builder: (context) => StatefulBuilder(
-  //                 builder: (BuildContext context, setState) => Dialog(
-  //                   shape: RoundedRectangleBorder(
-  //                     borderRadius: BorderRadius.circular(4.0),
-  //                   ),
-  //                   child: SizedBox(
-  //                     height: 50,
-  //                     child: Slider(
-  //                         value: _currentSliderValue,
-  //                         min: -10,
-  //                         max: 10,
-  //                         divisions: 20,
-  //                         label: _currentSliderValue.round().toString(),
-  //                         onChanged: (double value) {
-  //                           setState(() {
-  //                             _currentSliderValue = value;
-  //                           });
-  //                         },
-  //                         onChangeEnd: (double value) {
-  //                           print(value);
-  //                         }),
-  //                   ),
-  //                 ),
-  //               ),
-  //             );
-  //           },
-  //           icon: const Icon(
-  //             Icons.heart_broken,
-  //             color: Colors.grey,
-  //           ),
-  //           tooltip: 'Vota qui!',
-  //           iconSize: 40,
-  //         ),
-  //       ),
-  //       const Spacer(),
-  //       IconButton(
-  //         icon: const Icon(Icons.volume_up),
-  //         tooltip: 'grazie gian<3',
-  //         onPressed: () {
-  //           setState(() {});
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buildPost(String title) {
     var post =
