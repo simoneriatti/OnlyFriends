@@ -8,8 +8,7 @@ class ClassificaUtentiWidget extends StatefulWidget {
   const ClassificaUtentiWidget({super.key});
 
   @override
-  State<ClassificaUtentiWidget> createState() =>
-      _ClassificaUtentiWidgetState();
+  State<ClassificaUtentiWidget> createState() => _ClassificaUtentiWidgetState();
 }
 
 class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
@@ -20,16 +19,23 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
         .collection('Utente')
         .where("nome", isEqualTo: name)
         .get();
-    final userName = snapshot.docs.map((e) => UtenteModel.fromSnapshot(e)).single;
+    final userName =
+        snapshot.docs.map((e) => UtenteModel.fromSnapshot(e)).single;
     return userName;
   }
 
-  Future<List<UtenteModel>> getAllUser() async{
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Utente')
-        .get();
-    final userName = snapshot.docs.map((e) => UtenteModel.fromSnapshot(e)).toList();
+  Future<List<UtenteModel>> getAllUser() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('Utente').get();
+    final userName =
+        snapshot.docs.map((e) => UtenteModel.fromSnapshot(e)).toList();
     return userName;
+  }
+
+  @override
+  void initState() {
+    getUserDetails("elena");
+    super.initState();
   }
 
   @override
@@ -40,8 +46,15 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
           child: FutureBuilder(
             future: getUserDetails('elena'),
             builder: (context, snapshot) {
-              
-              return Text('$getAllUser()');
+              if (snapshot.hasError) {
+                return Text('Errore: ${snapshot.error}');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text('Caricamento...');
+              }
+              final users = snapshot.data!.toString();
+              return Text("$users");
             },
           ),
         ),
