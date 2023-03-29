@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final _pages = [HomePage(), LeadBoard(), Popup(), const UserProfile()];
+  final _pages = [HomePage(), LeadBoard(), Popup(),  UserProfile()];
 
   checkUserSignInNow() async {
     FirebaseAuth.instance.authStateChanges().listen((user) async {
