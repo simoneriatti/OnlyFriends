@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:only_friends/screen/new_challenge.dart';
 import 'package:only_friends/screen/new_post.dart';
 
-class PopupExample extends StatelessWidget {
+class Popup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
