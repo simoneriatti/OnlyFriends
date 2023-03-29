@@ -27,7 +27,7 @@ class _MainAppState extends State<MainApp> {
       },
       child: MaterialApp(
         title: "OnlyFriends",
-        debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         theme: ThemeData(
             primarySwatch: Colors.orange,
