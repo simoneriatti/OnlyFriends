@@ -20,7 +20,7 @@ class UtenteModel {
     DocumentSnapshot<Map<String, dynamic>> document) {
       final data = document.data()!;
     return UtenteModel(
-      nome: data['nome'],
+      nome: data["nome"] ,
       cognome: data['cognome'],
       username: data['username'],
       password: data['password'],
@@ -28,7 +28,7 @@ class UtenteModel {
     );
   }
 
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toSnapshot() {
     return {
       'nome': nome,
       'cognome': cognome,
@@ -37,4 +37,16 @@ class UtenteModel {
       'email': email,
     };
   }
+
+@override
+String toString() {
+  return 'UtenteModel('
+      'nome: $nome,'
+      'cognome: $cognome,'
+      'username: $username,'
+      'password: $password,'
+      'email: $email,'
+    ')';
+}
+
 }
