@@ -1,12 +1,10 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ScoreChallengeModel {
   String idPost;
   String idChallenge;
   String idUtenteDestinatario;
-  Int score;
+  int score;
 
   ScoreChallengeModel({
     required this.idPost,
