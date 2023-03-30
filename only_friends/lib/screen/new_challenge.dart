@@ -66,7 +66,7 @@ class _NewChallengeState extends State<NewChallenge> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Title',
+                'Titolo',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class _NewChallengeState extends State<NewChallenge> {
               }),
               SizedBox(height: 20),
               Text(
-                'Description',
+                'Descrizione',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
