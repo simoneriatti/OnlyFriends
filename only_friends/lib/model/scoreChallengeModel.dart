@@ -34,4 +34,10 @@ class ScoreChallengeModel {
       'score': score,
     };
   }
+
+@override
+  String toString() {
+  return 
+        '';
+}
 }
