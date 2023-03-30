@@ -229,7 +229,7 @@ class _SigninPageState extends State<SigninPage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "* Required";
-                          } else if (value.length <= 6) {
+                          } else if (value.length < 6) {
                             return "at least 6 characters long";
                           } else {
                             return null;
@@ -258,7 +258,7 @@ class _SigninPageState extends State<SigninPage> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "* Required";
-                        } else if (value.length <= 6) {
+                        } else if (value.length < 6) {
                           return "at least 6 characters long";
                         } else {
                           return null;
