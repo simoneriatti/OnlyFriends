@@ -58,28 +58,26 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.orange),
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            actions: [
-              IconButton(
-                onPressed: signUserOut,
-                icon: const Icon(Icons.exit_to_app),
-              ),
-            ],
-            centerTitle: true,
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                "OnlyFriends",
-                style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
-              ),
+      home: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: signUserOut,
+              icon: const Icon(Icons.exit_to_app),
+            ),
+          ],
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(
+              "OnlyFriends",
+              style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
             ),
           ),
-          drawer: HeaderDrawer(),
-          body: _pages[_selectedIndex],
-          bottomNavigationBar: const BottomBar(),
         ),
+        drawer: HeaderDrawer(),
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: const BottomBar(),
       ),
     );
   }
