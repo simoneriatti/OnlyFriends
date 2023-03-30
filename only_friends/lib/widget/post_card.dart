@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:only_friends/model/postModel.dart';
+import 'package:only_friends/screen/other_user_page.dart';
+import 'package:only_friends/screen/user_profile.dart';
 
 class PostCard extends StatefulWidget {
   // final PostModel post;
@@ -24,6 +26,13 @@ class _PostCardState extends State<PostCard> {
     setState(() {
       isSliderVisible = !isSliderVisible;
     });
+  }
+
+  void redirectToUserProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Profile_other()),
+    );
   }
 
   @override
@@ -54,13 +63,18 @@ class _PostCardState extends State<PostCard> {
                   style: GoogleFonts.poppins(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.amber,
-                    backgroundImage:
-                        AssetImage('assets/images/captainAmerica.png'),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      redirectToUserProfile();
+                    },
+                    child: const CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.amber,
+                      backgroundImage:
+                          AssetImage('assets/images/captainAmerica.png'),
+                    ),
                   ),
                 ),
               ],
