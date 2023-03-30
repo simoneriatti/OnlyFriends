@@ -127,6 +127,8 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "* Required";
+                          } else if (value.length <= 6) {
+                            return "at least 6 characters long";
                           } else {
                             return null;
                           }
