@@ -17,6 +17,7 @@ class _NewPostState extends State<NewPost> {
   String _postTitle = "";
   String _postDescription = "";
   String _photoUrl = "";
+  final user = FirebaseAuth.instance.currentUser!;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // widget per sostituire i due TextFormField uguali che creerò più avanti. Per un codice più pulito.
@@ -115,6 +116,7 @@ class _NewPostState extends State<NewPost> {
                 onPressed: () async {
                   // Oggetto Map per mappare l'oggetto postData, ovvero i campi del post
                   Map<String, dynamic> postData = {
+                    'id': user.uid,
                     'title': _postTitle,
                     'description': _postDescription,
                     'photoUrl': _photoUrl,
