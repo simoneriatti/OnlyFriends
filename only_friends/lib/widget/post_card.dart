@@ -16,6 +16,15 @@ class PostCard extends StatefulWidget {
 class _PostCardState extends State<PostCard> {
   int likeNumber = 120;
   double _currentSliderValue = 0;
+  bool isLike = false;
+  bool isSliderVisible = false;
+
+  void saveScore(double value) {
+    print(value);
+    setState(() {
+      isSliderVisible = !isSliderVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,56 +76,70 @@ class _PostCardState extends State<PostCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Slider(
-                  value: _currentSliderValue,
-                  thumbColor: Colors.orange,
-                  activeColor: Colors.grey,
-                  inactiveColor: Colors.white,
-                  min: -10,
-                  max: 10,
-                  divisions: 20,
-                  label: _currentSliderValue.round().toString(),
-                  onChanged: (double value) {
-                    setState(() {
-                      _currentSliderValue = value;
-                    });
-                  },
-                ),
+                isSliderVisible
+                    ? Slider(
+                        value: _currentSliderValue,
+                        thumbColor: Colors.orange,
+                        activeColor: Colors.grey,
+                        inactiveColor: Colors.white,
+                        min: -10,
+                        max: 10,
+                        divisions: 20,
+                        label: _currentSliderValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderValue = value;
+                          });
+                        },
+                        onChangeEnd: (double value) {
+                          saveScore(value);
+                        },
+                      )
+                    : const Text(""),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, right: 10.0),
                   child: IconButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => StatefulBuilder(
-                          builder: (BuildContext context, setState) => Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              child: Slider(
-                                  value: _currentSliderValue,
-                                  min: -10,
-                                  max: 10,
-                                  divisions: 20,
-                                  label: _currentSliderValue.round().toString(),
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      _currentSliderValue = value;
-                                    });
-                                  },
-                                  onChangeEnd: (double value) {
-                                    print(value);
-                                  }),
-                            ),
-                          ),
-                        ),
-                      );
+                      setState(() {
+                        isSliderVisible = !isSliderVisible;
+                        if (!isLike) {
+                          isLike = !isLike;
+                        }
+                      });
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => StatefulBuilder(
+                      //     builder: (BuildContext context, setState) => Dialog(
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(4.0),
+                      //       ),
+                      //       child: SizedBox(
+                      //         height: 50,
+                      //         child: Slider(
+                      //             value: _currentSliderValue,
+                      //             min: -10,
+                      //             max: 10,
+                      //             divisions: 20,
+                      //             label: _currentSliderValue.round().toString(),
+                      //             onChanged: (double value) {
+                      //               setState(() {
+                      //                 _currentSliderValue = value;
+                      //                 isLike = !isLike;
+                      //               });
+                      //             },
+                      //             onChangeEnd: (double value) {
+                      //               setState(() {
+                      //                 saveScore();
+                      //               });
+                      //             }),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // );
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.favorite,
-                      color: Colors.grey,
+                      color: !isLike ? Colors.grey : Colors.red,
                     ),
                     iconSize: 40,
                   ),
