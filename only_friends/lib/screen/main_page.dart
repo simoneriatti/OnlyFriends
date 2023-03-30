@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  final _pages = [HomePage(), LeadBoard(), Popup(),  UserProfile()];
+  final _pages = [HomePage(), LeadBoard(), Popup(), UserProfile()];
 
   checkUserSignInNow() async {
     FirebaseAuth.instance.authStateChanges().listen((user) async {
@@ -28,7 +28,7 @@ class _MainPageState extends State<MainPage> {
       // arriviamo qui da una registrazione o da un login
       if (user != null &&
           user.metadata.creationTime!
-              .add(const Duration(seconds: 20))
+              .add(const Duration(seconds: 10))
               .isAfter(DateTime.now())) {
         // se arriviamo da una registrazione, torniamo alla authpage passando come parametro true,
         // per riattivare la pagina di login e non quella della registrazione
@@ -58,26 +58,28 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.orange),
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: signUserOut,
-              icon: const Icon(Icons.exit_to_app),
-            ),
-          ],
-          centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(
-              "OnlyFriends",
-              style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: signUserOut,
+                icon: const Icon(Icons.exit_to_app),
+              ),
+            ],
+            centerTitle: true,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                "OnlyFriends",
+                style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+              ),
             ),
           ),
+          drawer: HeaderDrawer(),
+          body: _pages[_selectedIndex],
+          bottomNavigationBar: const BottomBar(),
         ),
-        drawer: HeaderDrawer(),
-        body: _pages[_selectedIndex],
-        bottomNavigationBar: const BottomBar(),
       ),
     );
   }
