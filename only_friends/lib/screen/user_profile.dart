@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widget/post_card.dart';
+import '../model/userModel.dart';
+
 // import 'package:social_app_ui/util/data.dart';
 
 
@@ -68,6 +71,7 @@ class _UserProfileState extends State<UserProfile> {
                   _postTitle("Post"),
                 ],
               ),
+
               _PostContainer("PostContainer"),
               _PostContainer("PostContainer"),
               _PostContainer("PostContainer"),
@@ -151,10 +155,20 @@ Widget _postTitle(String title) {
   }
 
   Widget _PostContainer(String postcontainer) {
+     bool isSliderVisible = false;
+       bool isLike = false;
+
     double _currentSliderValue = 0;
-    double likeNumber = 0;
+    // double likeNumber = 0;
     String points= "12";
     const data = 'Lorem ipsum ';
+
+    void saveScore(double value) {
+    print(value);
+    setState(() {
+      isSliderVisible = !isSliderVisible;
+    });
+  }
         return Container(
       padding: const EdgeInsetsDirectional.fromSTEB(10,5,0,0),
       child: Column(
@@ -164,9 +178,12 @@ Widget _postTitle(String title) {
               Expanded(
                 flex: 4,
                 child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1))), // child: Image.network(
+                    height: 160,
+                    decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/imgPost1.jpg'),
+                      fit: BoxFit.cover),
+                  color: Colors.transparent),), // child: Image.network(
                 //   'https://www.example.com/image.jpg',
                 //   height: 200,
                 // ),
@@ -203,80 +220,133 @@ Widget _postTitle(String title) {
             ],
           ),
           Container(
-            padding: const EdgeInsetsDirectional.fromSTEB(20, 4, 20, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            padding: const EdgeInsetsDirectional.fromSTEB(10, 4, 10, 10),
+             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Slider(
-                //   value: _currentSliderValue,
-                //   thumbColor: Colors.amber,
-                //   activeColor: Colors.grey,
-                //   inactiveColor: Colors.white,
-                //   min: -10,
-                //   max: 10,
-                //   divisions: 20,
-                //   label: _currentSliderValue.round().toString(),
-                //   onChanged: (double value) {
-                //     setState(() {
-                //       _currentSliderValue = value;
-                //     });
-                //   },
-                // ),
+                !isSliderVisible
+                    ? Slider(
+                        value: _currentSliderValue,
+                        thumbColor: Colors.orange,
+                        activeColor: Colors.grey,
+                        inactiveColor: Colors.white,  
+                        min: -10,
+                        max: 10,
+                        divisions: 20,
+                        label: _currentSliderValue.round().toString(),
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentSliderValue = value;
+                          });
+                        },
+                        onChangeEnd: (double value) {
+                          saveScore(value);
+                        },
+                      )
+                    : const Text(""),
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, right: 5.0),
-                  child: LikeButton(size: 40, likeCount: likeNumber),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0, right: 10.0),
+                  padding: const EdgeInsets.only(top: 5.0, right: 5.0),
                   child: IconButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => StatefulBuilder(
-                          builder: (BuildContext context, setState) => Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: SizedBox(
-                              height: 50,
-                              child: Slider(
-                                  value: _currentSliderValue,
-                                  min: -10,
-                                  max: 10,
-                                  divisions: 20,
-                                  label: _currentSliderValue.round().toString(),
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      _currentSliderValue = value;
-                                    });
-                                  },
-                                  onChangeEnd: (double value) {
-                                    print(value);
-                                  }),
-                            ),
-                          ),
-                        ),
-                      );
+                      setState(() {
+                        print(isLike);
+                        print(isSliderVisible);
+                        isSliderVisible = !isSliderVisible;
+                        if (!isLike) {
+                          isLike = !isLike;
+
+                       
+                        }
+                         print(isSliderVisible);
+                      });
                     },
-                    icon: const Icon(
-                      Icons.star_border_purple500,
-                      color: Colors.grey,
+                    icon: Icon(
+                      Icons.favorite,
+                      color: !isLike ? Colors.grey : Colors.red,
                     ),
-                    tooltip: 'Vota qui!',
                     iconSize: 40,
                   ),
                 ),
-                const Spacer(),
-                Text(points),
-                IconButton(
-                  icon: const Icon(Icons.leaderboard),
-                  tooltip: 'grazie gian<3',
-                  onPressed: () {
-                    setState(() {});
-                  },
-                ),
               ],
-            ),
+            )
+              //
+            
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     // Slider(
+            //     //   value: _currentSliderValue,
+            //     //   thumbColor: Colors.amber,
+            //     //   activeColor: Colors.grey,
+            //     //   inactiveColor: Colors.white,
+            //     //   min: -10,
+            //     //   max: 10,
+            //     //   divisions: 20,
+            //     //   label: _currentSliderValue.round().toString(),
+            //     //   onChanged: (double value) {
+            //     //     setState(() {
+            //     //       _currentSliderValue = value;
+            //     //     });
+            //     //   },
+            //     // ),
+
+
+                
+            //     Padding(
+            //       padding: const EdgeInsets.only(top: 8.0, right: 5.0),
+            //       child: LikeButton(size: 40, likeCount: likeNumber),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.only(top: 8.0, right: 10.0),
+            //       child: IconButton(
+            //         onPressed: () {
+            //           showDialog(
+            //             context: context,
+            //             builder: (context) => StatefulBuilder(
+            //               builder: (BuildContext context, setState) => Dialog(
+            //                 shape: RoundedRectangleBorder(
+            //                   borderRadius: BorderRadius.circular(4.0),
+            //                 ),
+            //                 child: SizedBox(
+            //                   height: 50,
+            //                   child: Slider(
+            //                       value: _currentSliderValue,
+            //                       min: -10,
+            //                       max: 10,
+            //                       divisions: 20,
+            //                       label: _currentSliderValue.round().toString(),
+            //                       onChanged: (double value) {
+            //                         setState(() {
+            //                           _currentSliderValue = value;
+            //                         });
+            //                       },
+            //                       onChangeEnd: (double value) {
+            //                         print(value);
+            //                       }),
+            //                 ),
+            //               ),
+            //             ),
+            //           );
+            //         },
+            //         icon: const Icon(
+            //           Icons.star_border_purple500,
+            //           color: Colors.grey,
+            //         ),
+            //         tooltip: 'Vota qui!',
+            //         iconSize: 40,
+            //       ),
+            //     ),
+            //     const Spacer(),
+            //     Text(points),
+            //     IconButton(
+            //       icon: const Icon(Icons.leaderboard),
+            //       tooltip: 'grazie gian<3',
+            //       onPressed: () {
+            //         setState(() {});
+            //       },
+            //     ),
+            //   ],
+            // ),
           )
         ],
       ),
