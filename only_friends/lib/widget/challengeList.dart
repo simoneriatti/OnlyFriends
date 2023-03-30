@@ -13,9 +13,9 @@ class ClassificaUtentiWidget extends StatefulWidget {
 }
 
 class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
-  List docIDs = [];
   Future<List<UtenteModel>?>? users;
   int i = 0;
+  String medaglia = '';
 
   Future<UtenteModel> getUserDetails(String name) async {
     final snapshot = await FirebaseFirestore.instance
@@ -65,10 +65,23 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
                 return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, inde) {
+                      if(i == 0){
+                        medaglia = "🥇";
+                      }
+                      if(i ==1){
+                        medaglia = "🥈";
+                      }
+                      if(i == 2){
+                        medaglia = "🥉";
+                      }
+                      if (i > 2){
+                        medaglia= "💀";
+                      }
+                      i++;
                    return Card(
               child: ListTile(
                 leading: CircleAvatar(
-                  child: Text(snapshot.data.toString()),
+                  child: Text("$medaglia"),
                 ),
                 title: Text(snapshot.data![inde].nome),
                 subtitle: Text('Score: ${snapshot.data![inde].score}'),
@@ -84,6 +97,7 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
               }
               if (snapshot.hasData) final users = snapshot.data!.toString();
               return Text("$users");
+              
             },
           ),
         ),
