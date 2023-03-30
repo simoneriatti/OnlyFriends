@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+
+import 'package:only_friends/model/groupModel.dart';
 
 class DialogCreateGroup extends StatefulWidget {
   const DialogCreateGroup({Key? key}) : super(key: key);
@@ -19,16 +22,20 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
   String groupNameHash = "";
   bool isCreated = false;
   bool passToggle = true;
+  List<GroupModel> groups = [];
 
   @override
   void initState() {
     super.initState();
   }
 
+
   void createGroup() {
-    // ignore: todo
-    // TODO salvare du db firebase il nome e l hash del gruppo
-    // var bytes = utf8.encode(groupName);
+    Map<String, dynamic> nameGroup = {
+      'nameGroup': groupController.text,
+      'password' : passController.text,
+    };
+    FirebaseFirestore.instance.collection("group").add(nameGroup);
     setState(() {
       // groupNameHash = sha1.convert(bytes).toString().substring(0, 14);
       groupName = groupController.text;
@@ -74,9 +81,7 @@ class _DialogCreateGroupState extends State<DialogCreateGroup> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "* Required";
-                            } else {
-                              return null;
-                            }
+                            }  else null;
                           }),
                     )
                   : const Padding(padding: EdgeInsets.all(0)),
