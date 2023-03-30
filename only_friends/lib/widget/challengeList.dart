@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../model/userModel.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../model/provaScoreModel.dart';
 
 class ClassificaUtentiWidget extends StatefulWidget {
   const ClassificaUtentiWidget({super.key});
@@ -13,6 +14,8 @@ class ClassificaUtentiWidget extends StatefulWidget {
 
 class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
   List docIDs = [];
+  Future<List<UtenteModel>?>? users;
+  int i = 0;
 
   Future<UtenteModel> getUserDetails(String name) async {
     final snapshot = await FirebaseFirestore.instance
@@ -27,14 +30,25 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
   Future<List<UtenteModel>> getAllUser() async {
     final snapshot =
         await FirebaseFirestore.instance.collection('Utente').get();
-    final userName =
+    final userList =
         snapshot.docs.map((e) => UtenteModel.fromSnapshot(e)).toList();
-    return userName;
+    return userList;
+  }
+
+  Future<List<ScoreModel>> getUserOrder() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('ScoreChallenges')
+        .where("idChallenge", isEqualTo: 1)
+        .orderBy("score", descending: true)
+        .get();
+    final userList =
+        snapshot.docs.map((e) => ScoreModel.fromSnapshot(e)).toList();
+    return userList;
   }
 
   @override
   void initState() {
-    getUserDetails("elena");
+    users = getAllUser();
     super.initState();
   }
 
@@ -44,16 +58,31 @@ class _ClassificaUtentiWidgetState extends State<ClassificaUtentiWidget> {
       children: [
         Expanded(
           child: FutureBuilder(
-            future: getUserDetails('elena'),
+            future: getUserOrder(),
             builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                i = 0;
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, inde) {
+                   return Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  child: Text(snapshot.data.toString()),
+                ),
+                title: Text(snapshot.data![inde].nome),
+                subtitle: Text('Score: ${snapshot.data![inde].score}'),
+              ),
+            );
+                    });
+              }
               if (snapshot.hasError) {
                 return Text('Errore: ${snapshot.error}');
               }
-
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Text('Caricamento...');
               }
-              final users = snapshot.data!.toString();
+              if (snapshot.hasData) final users = snapshot.data!.toString();
               return Text("$users");
             },
           ),
