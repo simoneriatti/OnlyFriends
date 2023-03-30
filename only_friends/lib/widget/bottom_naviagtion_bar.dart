@@ -20,30 +20,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
     int _selectedIndex = 0;
-
-    final List<NavigationDestination> destinations = [
-        NavigationDestination(
-            icon: Icon(Icons.home),
-            label: "Home",
-        ),
-        NavigationDestination(
-            icon: Icon(Icons.leaderboard),
-            label: "Classifica",
-        ),
-        NavigationDestination(
-            icon: Icon(Icons.add),
-            label: "Sfida / Post ",
-        ),
-        NavigationDestination(
-            icon: Icon(Icons.person),
-            label: "Profilo",
-        )
-        
-    ];
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> pages = [HomePage(),LeadBoard(),Popup(),UserProfile()];
     checkUserSignInNow() async {
     FirebaseAuth.instance.authStateChanges().listen((user) async {
       // dato che quando ti registri su firebase si logga automaticamente,
@@ -74,43 +50,72 @@ class _BottomBarState extends State<BottomBar> {
     FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, "auth");
   }
-    return Scaffold(
-      appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: signUserOut,
-              icon: const Icon(Icons.exit_to_app),
-            ),
-          ],
-          centerTitle: true,
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(
-              "OnlyFriends",
-              style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+
+    final List<NavigationDestination> destinations = [
+        NavigationDestination(
+            icon: Icon(Icons.home),
+            label: "Home",
+        ),
+        NavigationDestination(
+            icon: Icon(Icons.leaderboard),
+            label: "Classifica",
+        ),
+        NavigationDestination(
+            icon: Icon(Icons.add),
+            label: "Sfida / Post ",
+        ),
+        NavigationDestination(
+            icon: Icon(Icons.person),
+            label: "Profilo",
+        )
+        
+    ];
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> pages = [HomePage(),LeadBoard(),Popup(),UserProfile()];
+    
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.orange),
+      home: Scaffold(
+        appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: signUserOut,
+                icon: const Icon(Icons.exit_to_app),
+              ),
+            ],
+            centerTitle: true,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                "OnlyFriends",
+                style: GoogleFonts.pacifico(fontSize: 30, color: Colors.white),
+              ),
             ),
           ),
-        ),
-        drawer: HeaderDrawer(),
-        bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            selectedItemColor: Colors.orange,
-            unselectedItemColor: Colors.grey,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _selectedIndex,
-            items: destinations.map((destination) {
-                return BottomNavigationBarItem(
-                    icon: destination.icon,
-                    label: destination.label,
-                );
-            }).toList(),
-            onTap: (int index) {
-                setState(() {
-                    _selectedIndex = index;
-                });
-            },
-        ),
-        body: pages.elementAt(_selectedIndex)
+          drawer: HeaderDrawer(),
+          bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: Colors.white,
+              selectedItemColor: Colors.orange,
+              unselectedItemColor: Colors.grey,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _selectedIndex,
+              items: destinations.map((destination) {
+                  return BottomNavigationBarItem(
+                      icon: destination.icon,
+                      label: destination.label,
+                  );
+              }).toList(),
+              onTap: (int index) {
+                  setState(() {
+                      _selectedIndex = index;
+                  });
+              },
+          ),
+          body: pages.elementAt(_selectedIndex)
+      ),
     );
   }
 }
