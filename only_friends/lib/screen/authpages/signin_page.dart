@@ -46,23 +46,29 @@ class _SigninPageState extends State<SigninPage> {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passController.text.trim());
-        addUserDetails(fNameController.text.trim());
+        addUserDetails(
+          fNameController.text.trim(),
+          lNameController.text.trim(),
+          userController.text.trim(),
+          emailController.text.trim(),
+          passController.text.trim(),
+        );
         Navigator.pop(context);
       } on FirebaseException catch (e) {
-        Navigator.pop(context);
-        showDialog(
-            context: context,
-            builder: (context) {
-              return Center(
-                child: Text(e.code),
-              );
-            });
         // Navigator.pop(context);
-        // if (e.code == 'email-already-in-use') {
-        //   userInUseMessage();
-        // } else if (e.code == 'wrong-password') {
-        //   wrongPasswordMessage();
-        // }
+        // showDialog(
+        //     context: context,
+        //     builder: (context) {
+        //       return Center(
+        //         child: Text(e.code),
+        //       );
+        //     });
+        Navigator.pop(context);
+        if (e.code == 'email-already-in-use') {
+          userInUseMessage();
+        } else if (e.code == 'wrong-password') {
+          wrongPasswordMessage();
+        }
       }
     } else {
       passController.clear();
@@ -71,10 +77,15 @@ class _SigninPageState extends State<SigninPage> {
     }
   }
 
-  Future addUserDetails(String firstName) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .add({'name': firstName});
+  Future addUserDetails(String firstName, String lastname, String username,
+      String email, String password) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'firstname': firstName,
+      'lastname': lastname,
+      'username': username,
+      'email': email,
+      'password': password,
+    });
   }
 
   void wrongPasswordMessage() {
@@ -83,6 +94,16 @@ class _SigninPageState extends State<SigninPage> {
         builder: (context) {
           return const AlertDialog(
             title: Text('Password do not match'),
+          );
+        });
+  }
+
+  void userInUseMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            title: Text('User already in use'),
           );
         });
   }
@@ -208,6 +229,8 @@ class _SigninPageState extends State<SigninPage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "* Required";
+                          } else if (value.length <= 6) {
+                            return "at least 6 characters long";
                           } else {
                             return null;
                           }
@@ -232,6 +255,15 @@ class _SigninPageState extends State<SigninPage> {
                           )),
                       obscureText: pass2Toggle,
                       controller: passConfirmController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "* Required";
+                        } else if (value.length <= 6) {
+                          return "at least 6 characters long";
+                        } else {
+                          return null;
+                        }
+                      },
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
