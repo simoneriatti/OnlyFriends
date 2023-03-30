@@ -6,7 +6,6 @@ import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/leadboard.dart';
 import 'package:only_friends/screen/new_post.dart';
 import 'package:only_friends/screen/user_profile.dart';
-import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 import 'package:only_friends/widget/dialog_popup_create.dart';
 import 'package:only_friends/widget/header_drawer.dart';
 
@@ -53,6 +52,25 @@ class _MainPageState extends State<MainPage> {
     Navigator.pushReplacementNamed(context, "auth");
   }
 
+  final List<NavigationDestination> destinations = const [
+    NavigationDestination(
+      icon: Icon(Icons.home),
+      label: "Home",
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.leaderboard),
+      label: "Classifica",
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.add),
+      label: "Sfida / Post ",
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.person),
+      label: "Profilo",
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -77,7 +95,24 @@ class _MainPageState extends State<MainPage> {
         ),
         drawer: HeaderDrawer(),
         body: _pages[_selectedIndex],
-        bottomNavigationBar: const BottomBar(),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.orange,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          items: destinations.map((destination) {
+            return BottomNavigationBarItem(
+              icon: destination.icon,
+              label: destination.label,
+            );
+          }).toList(),
+          onTap: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
