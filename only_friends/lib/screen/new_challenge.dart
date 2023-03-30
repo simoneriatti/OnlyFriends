@@ -6,6 +6,7 @@ import 'package:only_friends/screen/home_page.dart';
 import 'package:only_friends/screen/main_page.dart';
 import 'package:only_friends/widget/bottom_naviagtion_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:math';
 
 class NewChallenge extends StatefulWidget {
   const NewChallenge({super.key});
@@ -16,6 +17,14 @@ class NewChallenge extends StatefulWidget {
 class _NewChallengeState extends State<NewChallenge> {
   String _challengeTitle = "";
   String _challengeDescription = "";
+  int _randomId = getRandomInt(100000);
+  
+
+  static int getRandomInt(int max) {
+  Random random = Random();
+  return random.nextInt(max);
+  }
+
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // widget per sostituire i due TextFormField uguali che creerò più avanti. Per un codice più pulito.
@@ -57,7 +66,7 @@ class _NewChallengeState extends State<NewChallenge> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Title',
+                'Titolo',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -65,14 +74,14 @@ class _NewChallengeState extends State<NewChallenge> {
                 ),
               ),
               SizedBox(height: 10),
-              _buildTextField("Enter title", (value) {
+              _buildTextField("Aggiungi un titolo", (value) {
                 setState(() {
                   _challengeTitle = value;
                 });
               }),
               SizedBox(height: 20),
               Text(
-                'Description',
+                'Descrizione',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -80,7 +89,7 @@ class _NewChallengeState extends State<NewChallenge> {
                 ),
               ),
               SizedBox(height: 10),
-              _buildTextField("Enter description", (value) {
+              _buildTextField("Aggiungi una descrizione", (value) {
                 setState(() {
                   _challengeDescription = value;
                 });
@@ -93,6 +102,7 @@ class _NewChallengeState extends State<NewChallenge> {
                 onPressed: () async {
                   // Oggetto Map per mappare l'oggetto postData, ovvero i campi del post
                   Map<String, dynamic> challengeData = {
+                    'id': _randomId,
                     'title': _challengeTitle,
                     'description': _challengeDescription,
                   };
@@ -101,7 +111,7 @@ class _NewChallengeState extends State<NewChallenge> {
                   await firestore.collection('challenges').add(challengeData);
 
                   // Piccolo messaggio su console per far vedere che il post è stato inserito correttamente
-                  print('Post added successfully');
+                  print('Challenge added successfully');
 
                   // Ritorno alla pagina principale
                   Navigator.pushReplacement(

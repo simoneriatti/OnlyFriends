@@ -47,7 +47,7 @@ class _LeadBoardState extends State<LeadBoard> {
                 height: 250,
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.amber)),
-                child: Column()),
+                child: ClassificaUtentiWidget()),
           ),
         ],
       ),

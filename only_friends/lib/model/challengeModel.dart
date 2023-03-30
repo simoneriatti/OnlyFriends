@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ChallengeModel {
   String idChallenge;
   String nomeChallenge;
+  String descrizioneChallenge;
 
   ChallengeModel({
     required this.idChallenge,
     required this.nomeChallenge,
+    required this.descrizioneChallenge,
   });
 
   factory ChallengeModel.fromSnapshot(
@@ -15,6 +17,7 @@ class ChallengeModel {
     return ChallengeModel(
       idChallenge: data['idChallenge'],
       nomeChallenge: data['nomeChallenge'],
+      descrizioneChallenge: data['descrizioneChallenge'],
     );
   }
 
@@ -22,6 +25,7 @@ class ChallengeModel {
     return {
       'idChallenge': idChallenge,
       'nomeChallenge': nomeChallenge,
+      'descrizioneChallenge': descrizioneChallenge,
     };
   }
 }
